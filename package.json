@@ -1,0 +1,26 @@
+{
+  "name": "koa-and-typescript-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "watch": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kobalazs/koa-and-typescript-playground.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kobalazs/koa-and-typescript-playground/issues"
+  },
+  "homepage": "https://github.com/kobalazs/koa-and-typescript-playground#readme",
+  "dependencies": {
+    "koa": "^2.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
