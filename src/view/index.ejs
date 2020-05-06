@@ -1,1 +1,6 @@
-<h1>Welcome</h1>
+<h1><%= title %></h1>
+<ul class="list-group">
+  <% welcomes.forEach(welcome => { %>
+    <li class="list-group-item"><%= welcome %></li>
+  <% }); %>
+</ul>

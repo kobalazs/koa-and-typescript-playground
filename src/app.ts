@@ -11,11 +11,12 @@ render(app, {
   layout: 'layout',
   viewExt: 'ejs',
   cache: false,
-  debug: true
+  debug: false
 });
 
 router.get('/', async ctx => {
-  await ctx.render('index');
+  const welcomes = ['Welcome', 'Wilcommen', 'Üdvözöllek', 'Bienvenidos'];
+  await ctx.render('index', { title: 'Welcomes', welcomes });
 });
 router.get('/hello', async ctx => ctx.body = { hello: 'world' });
 
