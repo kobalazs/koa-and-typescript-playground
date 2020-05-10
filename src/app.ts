@@ -3,6 +3,8 @@ import * as KoaRouter from 'koa-router';
 import * as render from 'koa-ejs';
 import * as path from 'path';
 
+import apiRoutes from './api/routes';
+
 const app = new Koa();
 const router = new KoaRouter();
 
@@ -21,6 +23,7 @@ router.get('/', async ctx => {
 router.get('/hello', async ctx => ctx.body = { hello: 'world' });
 
 app.use(router.routes())
-  .use(router.allowedMethods());
+  .use(router.allowedMethods())
+  .use(apiRoutes.routes());
 
 app.listen(3000, () => console.log('Server has started!'));
