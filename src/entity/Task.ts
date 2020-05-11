@@ -4,20 +4,20 @@ import { User } from './User';
 @Entity('tasks')
 export class Task {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @ManyToOne(type => User, user => user.tasks)
-  user: User;
+  public user: User;
 
   @Column()
-  name: string;
+  public name: string;
 
   @Column()
-  color: string;
+  public color: string;
 
   @Column()
-  position: number;
+  public position: number;
 
   @Column()
-  isDone: boolean = false;
+  public isDone: boolean = false;
 }

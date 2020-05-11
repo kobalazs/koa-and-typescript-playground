@@ -1,20 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import * as util from 'util';
+import * as bcrypt from 'bcrypt';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { Task } from './Task';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column()
-  name: string;
+  public name: string;
 
   @Column()
-  email: string;
+  public email: string;
 
   @Column()
-  password: string;
+  private hash: string;
+  public password: string;
 
   @OneToMany(type => Task, task => task.user)
-  tasks: Task[];
+  public tasks: Task[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  public async hashPassword() {
+    if (this.password === undefined || this.password === null) {
+      return;
+    }
+    const hash = util.promisify(bcrypt.hash);
+    this.hash = await hash(this.password, 1);
+  }
 }
