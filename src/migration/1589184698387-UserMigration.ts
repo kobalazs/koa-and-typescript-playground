@@ -18,13 +18,14 @@ export class UserMigration1589184698387 implements MigrationInterface {
         {
           name: 'email',
           type: 'varchar',
+          isUnique: true,
         },
         {
           name: 'password',
           type: 'varchar',
         },
       ]
-    }), true)
+    }), true);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
