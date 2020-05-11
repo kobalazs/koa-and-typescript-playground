@@ -1,3 +1,4 @@
+import * as env from 'dotenv';
 import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import * as render from 'koa-ejs';
@@ -7,6 +8,8 @@ import 'reflect-metadata';
 
 import apiRouter from './router/api';
 import webRouter from './router/web';
+
+env.config();
 
 (async () => {
   await createConnection();

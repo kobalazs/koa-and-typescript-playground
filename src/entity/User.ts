@@ -30,7 +30,7 @@ export class User {
     if (this.password === undefined || this.password === null) {
       return;
     }
-    this.hash = await hash(this.password, 1);
+    this.hash = await hash(this.password, parseInt(process.env.HASH_ROUNDS));
   }
 
   public async matchPassword(password: string): Promise<User> {

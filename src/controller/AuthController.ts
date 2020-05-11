@@ -11,7 +11,7 @@ export default class AuthController {
       const userData = { id: user.id, name: user.name, email: user.email };
       ctx.status = 200;
       ctx.body = {
-        token: jwt.sign(userData, 'secret', { expiresIn: 60*5 }),
+        token: jwt.sign(userData, 'secret', { expiresIn: parseInt(process.env.TOKEN_TTL) }),
         message: 'Succesful login',
         user: userData
       };
