@@ -17,8 +17,8 @@ export class User {
   @Column()
   public email: string;
 
-  @Column()
-  private hash: string;
+  @Column({ select: false })
+  public hash: string;
   public password: string;
 
   @OneToMany(type => Task, task => task.user)
@@ -33,8 +33,7 @@ export class User {
     this.hash = await hash(this.password, parseInt(process.env.HASH_ROUNDS));
   }
 
-  public async matchPassword(password: string): Promise<User> {
-    const success = await compare(password, this.hash);
-    return success ? Promise.resolve(this) : Promise.reject();
+  public async hasMatchingPassword(password: string): Promise<boolean> {
+    return compare(password, this.hash);
   }
 }

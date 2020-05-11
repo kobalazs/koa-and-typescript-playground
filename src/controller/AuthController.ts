@@ -8,16 +8,13 @@ export default class AuthController {
   public static async login(ctx: Context): Promise<void> {
     try {
       const user = await getCustomRepository(UserRepository).auth(ctx.request.body.email, ctx.request.body.password);
-      const userData = { id: user.id, name: user.name, email: user.email };
       ctx.status = 200;
       ctx.body = {
-        token: jwt.sign(userData, 'secret', { expiresIn: parseInt(process.env.TOKEN_TTL) }),
-        message: 'Succesful login',
-        user: userData
+        token: jwt.sign(Object.assign({}, user), 'secret', { expiresIn: parseInt(process.env.TOKEN_TTL) }),
+        user
       };
     } catch (error) {
-      console.error(error);
-      ctx.throw(401, 'Login failed');
+      ctx.throw(401, error);
     }
   }
 
