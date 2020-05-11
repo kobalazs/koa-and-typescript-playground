@@ -14,5 +14,6 @@ router.use(KoaJwt({ secret: 'secret' }));
 router.get('/user', AuthController.user);
 
 router.get('/task', TaskController.list);
+router.post('/task', TaskController.create);
 
 export default router;
