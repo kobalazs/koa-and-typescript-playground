@@ -3,6 +3,9 @@ import * as bcrypt from 'bcrypt';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { Task } from './Task';
 
+const hash = util.promisify(bcrypt.hash);
+const compare = util.promisify(bcrypt.compare);
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -23,11 +26,15 @@ export class User {
 
   @BeforeInsert()
   @BeforeUpdate()
-  public async hashPassword() {
+  public async hashPassword(): Promise<void> {
     if (this.password === undefined || this.password === null) {
       return;
     }
-    const hash = util.promisify(bcrypt.hash);
     this.hash = await hash(this.password, 1);
+  }
+
+  public async matchPassword(password: string): Promise<User> {
+    const success = await compare(password, this.hash);
+    return success ? Promise.resolve(this) : Promise.reject();
   }
 }
